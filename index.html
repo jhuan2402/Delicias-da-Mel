@@ -9,7 +9,6 @@
     name="description"
     content="Bolos personalizados e docinhos artesanais feitos com carinho."
   />
-
   <meta property="og:title" content="Delícias da Mel" />
   <meta
     property="og:description"
@@ -27,7 +26,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
+      font-family: "Inter", sans-serif;
     }
 
     html {
@@ -43,44 +42,96 @@
     header {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      padding: 14px 20px;
+      padding: 14px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.58);
       backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.35);
       z-index: 999;
-      gap: 12px;
     }
 
     .logo {
       height: 38px;
+      object-fit: contain;
       flex-shrink: 0;
     }
 
-    nav {
+    .menu-btn {
+      width: 52px;
+      height: 52px;
+      border: none;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.34);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
       display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .menu-btn span {
+      width: 20px;
+      height: 2px;
+      background: #7a4a57;
+      border-radius: 999px;
+      transition: 0.25s;
+    }
+
+    .menu-btn.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-btn.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    nav {
+      position: absolute;
+      top: 82px;
+      right: 18px;
+      width: 230px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      padding: 14px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.46);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    nav.open {
+      display: flex;
     }
 
     nav a {
-      padding: 8px 16px;
-      border-radius: 20px;
+      padding: 12px 16px;
+      border-radius: 16px;
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.7);
       color: #7a4a57;
       font-size: 14px;
-      transition: 0.25s;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+      font-weight: 500;
+      transition: 0.2s;
     }
 
     nav a:hover {
       background: #ffeaf4;
-      transform: translateY(-1px);
     }
 
     .hero {
@@ -145,6 +196,7 @@
     .card {
       background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-radius: 24px;
       padding: 24px;
       margin-bottom: 20px;
@@ -254,20 +306,32 @@
       line-height: 1.7;
     }
 
-    @media (max-width: 700px) {
-      header {
-        padding: 12px 14px;
+    @media (min-width: 768px) {
+      .menu-btn {
+        display: none;
       }
 
-      .logo {
-        height: 32px;
+      nav {
+        position: static;
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
       }
 
       nav a {
-        font-size: 13px;
-        padding: 7px 12px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.88);
       }
+    }
 
+    @media (max-width: 700px) {
       .hero h1 {
         font-size: 28px;
       }
@@ -287,7 +351,13 @@
   <header>
     <img src="logo.png" class="logo" alt="Logo Delícias da Mel" />
 
-    <nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav id="mobileMenu">
       <a href="#tamanhos">Tamanhos</a>
       <a href="#docinhos">Docinhos</a>
       <a href="#galeria">Galeria</a>
@@ -306,9 +376,9 @@
 
     <p>
       Bolos personalizados e docinhos deliciosos com uma apresentação leve,
-      elegante e pensada em cada cliente de uma forma especial.
-      Prezamos pela qualidade, conforto e confiança, por isso todos os nossos
-      produtos são feitos de forma artesanal.
+      elegante e pensada em cada cliente de uma forma especial. Prezamos pela
+      qualidade, conforto e confiança, por isso todos os nossos produtos são
+      feitos de forma artesanal.
     </p>
 
     <a
@@ -482,5 +552,33 @@
   >
     WhatsApp
   </a>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const menuLinks = mobileMenu.querySelectorAll("a");
+
+    menuBtn.addEventListener("click", () => {
+      menuBtn.classList.toggle("active");
+      mobileMenu.classList.toggle("open");
+    });
+
+    menuLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        menuBtn.classList.remove("active");
+        mobileMenu.classList.remove("open");
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      const clickedBtn = menuBtn.contains(e.target);
+      const clickedMenu = mobileMenu.contains(e.target);
+
+      if (!clickedBtn && !clickedMenu) {
+        menuBtn.classList.remove("active");
+        mobileMenu.classList.remove("open");
+      }
+    });
+  </script>
 </body>
 </html>
