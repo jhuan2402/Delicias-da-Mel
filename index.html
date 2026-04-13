@@ -30,37 +30,25 @@ scroll-behavior:smooth;
 }
 
 body{
-
-background:
-linear-gradient(120deg,#ffffff,#fff3f8,#ffffff);
-
+background:linear-gradient(120deg,#ffffff,#fff3f8,#ffffff);
 color:#5b3a3a;
-
 overflow-x:hidden;
-
 }
 
 
-/* NAV */
+/* MENU */
 
 header{
 
 position:fixed;
-
 top:0;
-
 width:100%;
-
 padding:14px 20px;
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
 
 background:rgba(255,255,255,0.75);
-
 backdrop-filter:blur(18px);
 
 border-bottom:1px solid rgba(0,0,0,0.04);
@@ -70,35 +58,29 @@ z-index:999;
 }
 
 .logo{
-
-height:36px;
-
+height:38px;
 }
 
 nav{
-
 display:flex;
-
 gap:8px;
-
 flex-wrap:wrap;
-
 }
 
 nav a{
 
-padding:8px 14px;
-
+padding:8px 16px;
 border-radius:20px;
-
 text-decoration:none;
-
-background:#ffffff;
-
+background:rgba(255,255,255,0.85);
 color:#7a4a57;
-
 font-size:14px;
+transition:0.25s;
 
+}
+
+nav a:hover{
+background:#ffeaf4;
 }
 
 
@@ -107,23 +89,17 @@ font-size:14px;
 .hero{
 
 padding-top:110px;
-
 min-height:100vh;
 
 display:flex;
-
 flex-direction:column;
-
 align-items:center;
-
 justify-content:center;
 
 text-align:center;
-
 gap:25px;
 
 padding-left:20px;
-
 padding-right:20px;
 
 }
@@ -131,36 +107,26 @@ padding-right:20px;
 .hero img{
 
 width:100%;
-
 max-width:420px;
 
 border-radius:30px;
 
 box-shadow:0 25px 80px rgba(0,0,0,0.06);
 
-animation:fadeUp 1s ease;
-
 }
 
 .hero h1{
 
 font-size:36px;
-
 font-weight:800;
-
-animation:fadeUp 1.2s ease;
 
 }
 
 .hero p{
 
 max-width:520px;
-
 line-height:1.6;
-
 color:#7a5a5a;
-
-animation:fadeUp 1.4s ease;
 
 }
 
@@ -169,24 +135,14 @@ animation:fadeUp 1.4s ease;
 background:linear-gradient(135deg,#ff9ac6,#ff4fa3);
 
 color:white;
-
 padding:14px 26px;
 
 border-radius:30px;
-
 text-decoration:none;
 
 font-weight:600;
 
 box-shadow:0 8px 25px rgba(255,79,163,0.3);
-
-transition:0.3s;
-
-}
-
-.btn:hover{
-
-transform:translateY(-2px);
 
 }
 
@@ -196,19 +152,15 @@ transform:translateY(-2px);
 section{
 
 max-width:950px;
-
 margin:auto;
 
 padding:70px 20px;
-
-animation:fadeUp 1s ease;
 
 }
 
 h2{
 
 font-size:28px;
-
 margin-bottom:18px;
 
 }
@@ -218,14 +170,13 @@ margin-bottom:18px;
 
 .card{
 
-background:rgba(255,255,255,0.8);
+background:rgba(255,255,255,0.85);
 
 backdrop-filter:blur(16px);
 
 border-radius:24px;
 
 padding:24px;
-
 margin-bottom:20px;
 
 box-shadow:0 10px 40px rgba(0,0,0,0.05);
@@ -233,7 +184,7 @@ box-shadow:0 10px 40px rgba(0,0,0,0.05);
 }
 
 
-/* DOCES CORES */
+/* DOCES */
 
 #doce-card{
 
@@ -246,9 +197,7 @@ border:1px solid #ffd6e8;
 .pink-title{
 
 color:#ff4fa3;
-
 font-weight:700;
-
 margin-bottom:6px;
 
 }
@@ -259,7 +208,6 @@ margin-bottom:6px;
 .bolo{
 
 display:grid;
-
 gap:14px;
 
 }
@@ -267,7 +215,6 @@ gap:14px;
 .bolo img{
 
 width:100%;
-
 border-radius:20px;
 
 }
@@ -275,37 +222,44 @@ border-radius:20px;
 .price{
 
 color:#ff4fa3;
-
 font-weight:700;
 
-margin-top:8px;
-
 }
 
 
-/* GALERIA */
+/* GALERIA INSTAGRAM */
 
-.galeria{
+.galeria-scroll{
 
-display:grid;
+display:flex;
 
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:16px;
 
-gap:15px;
+overflow-x:auto;
+
+padding-bottom:10px;
+
+scroll-snap-type:x mandatory;
 
 }
 
-.galeria img{
+.galeria-scroll img{
 
-width:100%;
+height:230px;
 
-border-radius:20px;
+border-radius:18px;
+
+scroll-snap-align:start;
+
+flex-shrink:0;
+
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
 
 transition:0.3s;
 
 }
 
-.galeria img:hover{
+.galeria-scroll img:hover{
 
 transform:scale(1.04);
 
@@ -317,9 +271,7 @@ transform:scale(1.04);
 .whatsapp{
 
 position:fixed;
-
 bottom:20px;
-
 right:20px;
 
 background:linear-gradient(135deg,#ff9ac6,#ff4fa3);
@@ -372,29 +324,6 @@ color:#9b6c79;
 }
 
 
-/* ANIMAÇÃO */
-
-@keyframes fadeUp{
-
-from{
-
-opacity:0;
-
-transform:translateY(25px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
-}
-
-}
-
-
 /* MOBILE */
 
 @media(max-width:700px){
@@ -402,6 +331,12 @@ transform:translateY(0);
 .hero h1{
 
 font-size:28px;
+
+}
+
+.galeria-scroll img{
+
+height:200px;
 
 }
 
@@ -480,11 +415,7 @@ Fazer encomenda
 
 PP • 6 a 8 fatias
 
-<div class="price">
-
-R$70 • R$80 • R$90
-
-</div>
+<div class="price">R$70 • R$80 • R$90</div>
 
 </div>
 
@@ -495,11 +426,7 @@ R$70 • R$80 • R$90
 
 P • 13 a 15 fatias
 
-<div class="price">
-
-R$110 • R$125 • R$145
-
-</div>
+<div class="price">R$110 • R$125 • R$145</div>
 
 </div>
 
@@ -510,11 +437,7 @@ R$110 • R$125 • R$145
 
 M • 25 a 30 fatias
 
-<div class="price">
-
-R$180 • R$195 • R$210
-
-</div>
+<div class="price">R$180 • R$195 • R$210</div>
 
 </div>
 
@@ -525,11 +448,7 @@ R$180 • R$195 • R$210
 
 G • 40 a 45 fatias
 
-<div class="price">
-
-R$260 • R$280 • R$300
-
-</div>
+<div class="price">R$260 • R$280 • R$300</div>
 
 </div>
 
@@ -540,11 +459,7 @@ R$260 • R$280 • R$300
 
 GG • 60 a 65 fatias
 
-<div class="price">
-
-R$370 • R$390 • R$410
-
-</div>
+<div class="price">R$370 • R$390 • R$410</div>
 
 </div>
 
@@ -557,72 +472,43 @@ R$370 • R$390 • R$410
 <h2>Docinhos por cento</h2>
 
 
-
 <div class="card" id="doce-card">
 
-<div class="pink-title">
-
-Tradicionais — R$115
-
-</div>
+<div class="pink-title">Tradicionais — R$115</div>
 
 Brigadeiro<br>
-
 Beijinho<br>
-
 Prestígio<br>
-
 Ninho<br>
-
 Bicho de pé<br>
-
 Limão
 
 </div>
 
 
-
 <div class="card" id="doce-card">
 
-<div class="pink-title">
-
-Especiais — R$135
-
-</div>
+<div class="pink-title">Especiais — R$135</div>
 
 Dois amores<br>
-
 Olho de sogra<br>
-
 Palha italiana<br>
-
 Sensação
 
 </div>
 
 
-
 <div class="card" id="doce-card">
 
-<div class="pink-title">
-
-Gourmet — R$165
-
-</div>
+<div class="pink-title">Gourmet — R$165</div>
 
 Brigadeiro gourmet<br>
-
 Ninho com Nutella<br>
-
 Ferrero<br>
-
 Oreo<br>
-
 Churros
 
 </div>
-
-
 
 </section>
 
@@ -630,17 +516,23 @@ Churros
 
 <section id="galeria">
 
-<h2>Alguns trabalhos</h2>
+<h2>Galeria</h2>
 
-<div class="galeria">
+<div class="galeria-scroll">
 
-<img src="bolo-destaque.jpeg">
-
-<img src="bolo-m.jpeg">
-
-<img src="bolo-g.jpeg">
-
-<img src="bolo-gg.jpeg">
+<img src="galeria1.jpeg">
+<img src="galeria2.jpeg">
+<img src="galeria3.jpeg">
+<img src="galeria4.jpeg">
+<img src="galeria5.jpeg">
+<img src="galeria6.jpeg">
+<img src="galeria7.jpeg">
+<img src="galeria8.jpeg">
+<img src="galeria9.jpeg">
+<img src="galeria10.jpeg">
+<img src="galeria11.jpeg">
+<img src="galeria12.jpeg">
+<img src="galeria13.jpeg">
 
 </div>
 
@@ -671,9 +563,7 @@ Forma de pagamento:
 <br><br>
 
 Pix<br>
-
 Dinheiro<br>
-
 Cartão com acréscimo de 5%
 
 </div>
@@ -692,7 +582,13 @@ Instagram:
 
 <br>
 
+<a href="https://instagram.com/deliciasdamel_2"
+target="_blank"
+style="color:#ff4fa3;font-weight:600;text-decoration:none">
+
 @deliciasdamel_2
+
+</a>
 
 <br><br>
 
