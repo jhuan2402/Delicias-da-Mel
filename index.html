@@ -1,1357 +1,741 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Delícias da Mel</title>
-  <meta
-    name="description"
-    content="Cardápio de bolos e docinhos da Delícias da Mel. Encomendas com antecedência, sabores variados e atendimento personalizado."
-  />
-  <meta name="theme-color" content="#f6edf1" />
-
-  <style>
-    :root {
-      --bg: #f7f1f3;
-      --bg-soft: #fbf8fa;
-      --surface: rgba(255, 255, 255, 0.58);
-      --surface-strong: rgba(255, 255, 255, 0.72);
-      --text: #5a382c;
-      --text-soft: #7a5b4f;
-      --pink: #c95b96;
-      --pink-dark: #b54a84;
-      --pink-soft: #f1d0e0;
-      --pink-line: rgba(201, 91, 150, 0.16);
-      --line: rgba(90, 56, 44, 0.08);
-      --shadow: 0 10px 30px rgba(90, 56, 44, 0.08);
-      --shadow-strong: 0 16px 45px rgba(90, 56, 44, 0.12);
-      --radius: 28px;
-      --radius-sm: 18px;
-      --max: 1180px;
-      --header-h: 78px;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(241, 208, 224, 0.45), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(201, 91, 150, 0.10), transparent 22%),
-        linear-gradient(180deg, var(--bg), var(--bg-soft));
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.38;
-      background:
-        radial-gradient(circle at 18% 18%, rgba(255,255,255,0.92), transparent 15%),
-        radial-gradient(circle at 78% 34%, rgba(255,255,255,0.85), transparent 14%),
-        radial-gradient(circle at 56% 86%, rgba(241,208,224,0.55), transparent 13%);
-      filter: blur(18px);
-      z-index: -1;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    a {
-      color: inherit;
-    }
-
-    .container {
-      width: min(var(--max), calc(100% - 24px));
-      margin: 0 auto;
-    }
-
-    .glass {
-      background: var(--surface);
-      border: 1px solid rgba(255, 255, 255, 0.58);
-      backdrop-filter: blur(18px) saturate(140%);
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
-      box-shadow: var(--shadow);
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      animation: revealUp 0.85s ease forwards;
-    }
-
-    .delay-1 { animation-delay: 0.08s; }
-    .delay-2 { animation-delay: 0.16s; }
-    .delay-3 { animation-delay: 0.24s; }
-
-    @keyframes revealUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1200;
-      height: var(--header-h);
-      background: rgba(247, 241, 243, 0.66);
-      backdrop-filter: blur(18px) saturate(140%);
-      -webkit-backdrop-filter: blur(18px) saturate(140%);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .nav {
-      min-height: var(--header-h);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      min-width: 0;
-    }
-
-    .brand img {
-      width: 44px;
-      height: 44px;
-      object-fit: contain;
-      flex-shrink: 0;
-      filter: drop-shadow(0 4px 10px rgba(90,56,44,0.08));
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-
-    .brand-text strong {
-      font-size: 1rem;
-      line-height: 1;
-      letter-spacing: 0.01em;
-    }
-
-    .brand-text span {
-      font-size: 0.78rem;
-      color: var(--text-soft);
-      margin-top: 4px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .menu-toggle {
-      width: 46px;
-      height: 46px;
-      border: 0;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.58);
-      border: 1px solid rgba(255,255,255,0.62);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .menu-toggle span,
-    .menu-toggle span::before,
-    .menu-toggle span::after {
-      width: 18px;
-      height: 2px;
-      border-radius: 999px;
-      background: var(--text);
-      display: block;
-      position: relative;
-      transition: 0.25s ease;
-      content: "";
-    }
-
-    .menu-toggle span::before {
-      position: absolute;
-      top: -6px;
-    }
-
-    .menu-toggle span::after {
-      position: absolute;
-      top: 6px;
-    }
-
-    .menu-toggle.active span {
-      background: transparent;
-    }
-
-    .menu-toggle.active span::before {
-      top: 0;
-      transform: rotate(45deg);
-    }
-
-    .menu-toggle.active span::after {
-      top: 0;
-      transform: rotate(-45deg);
-    }
-
-    nav {
-      position: fixed;
-      top: calc(var(--header-h) + 8px);
-      left: 12px;
-      right: 12px;
-      display: grid;
-      gap: 8px;
-      padding: 12px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(255,255,255,0.65);
-      backdrop-filter: blur(16px) saturate(140%);
-      -webkit-backdrop-filter: blur(16px) saturate(140%);
-      box-shadow: var(--shadow-strong);
-      transform: translateY(-12px);
-      opacity: 0;
-      pointer-events: none;
-      transition: 0.25s ease;
-    }
-
-    nav.open {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    nav a {
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 0.96rem;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.58);
-      transition: 0.2s ease;
-    }
-
-    nav a:hover {
-      background: rgba(255,255,255,0.86);
-    }
-
-    main {
-      padding-top: 16px;
-    }
-
-    section {
-      padding: 10px 0 18px;
-      scroll-margin-top: calc(var(--header-h) + 16px);
-    }
-
-    .section-card {
-      border-radius: var(--radius);
-      padding: 20px;
-      overflow: hidden;
-    }
-
-    .section-head {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .pill-title {
-      width: fit-content;
-      min-height: 52px;
-      padding: 0 20px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
-      color: #fff;
-      font-weight: 900;
-      font-size: 1.02rem;
-      box-shadow: 0 10px 24px rgba(201, 91, 150, 0.20);
-    }
-
-    .section-head h2 {
-      font-size: clamp(1.55rem, 7vw, 2.8rem);
-      line-height: 1.02;
-      letter-spacing: -0.045em;
-    }
-
-    .section-head p {
-      color: var(--text-soft);
-      line-height: 1.7;
-      max-width: 64ch;
-    }
-
-    .hero {
-      padding-top: 4px;
-    }
-
-    .hero-grid {
-      display: grid;
-      gap: 16px;
-    }
-
-    .hero-copy,
-    .hero-visual {
-      border-radius: 30px;
-      overflow: hidden;
-    }
-
-    .hero-copy {
-      padding: 22px;
-      position: relative;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      min-height: 38px;
-      padding: 0 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.56);
-      border: 1px solid rgba(255,255,255,0.58);
-      color: var(--pink);
-      font-size: 0.9rem;
-      font-weight: 900;
-      margin-bottom: 14px;
-    }
-
-    .hero-copy h1 {
-      font-size: clamp(2.1rem, 10vw, 5.2rem);
-      line-height: 0.95;
-      letter-spacing: -0.055em;
-      max-width: 11ch;
-      margin-bottom: 14px;
-    }
-
-    .hero-copy p {
-      font-size: 1rem;
-      line-height: 1.75;
-      color: var(--text-soft);
-      margin-bottom: 18px;
-      max-width: 56ch;
-    }
-
-    .hero-actions {
-      display: grid;
-      gap: 10px;
-    }
-
-    .btn {
-      min-height: 54px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 18px;
-      text-decoration: none;
-      font-weight: 900;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .btn-primary {
-      color: #fff;
-      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
-      box-shadow: 0 12px 24px rgba(201, 91, 150, 0.22);
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.58);
-      border: 1px solid rgba(255,255,255,0.6);
-    }
-
-    .hero-visual {
-      position: relative;
-      min-height: 440px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.12));
-    }
-
-    .hero-visual::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)),
-        radial-gradient(circle at 50% 15%, rgba(255,255,255,0.30), transparent 28%);
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .hero-visual img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .hero-floating {
-      position: absolute;
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
-      z-index: 2;
-      padding: 16px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.52);
-      border: 1px solid rgba(255,255,255,0.6);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-
-    .hero-floating strong {
-      display: block;
-      font-size: 1rem;
-      margin-bottom: 6px;
-    }
-
-    .hero-floating span {
-      color: var(--text-soft);
-      font-size: 0.94rem;
-      line-height: 1.6;
-    }
-
-    .quick-grid,
-    .grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    .card {
-      border-radius: 24px;
-      padding: 18px;
-      background: var(--surface-strong);
-      border: 1px solid rgba(255,255,255,0.6);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-
-    .card h3 {
-      font-size: 1.08rem;
-      margin-bottom: 10px;
-    }
-
-    .card p,
-    .card li,
-    .card small {
-      color: var(--text-soft);
-      line-height: 1.7;
-      font-size: 0.97rem;
-    }
-
-    .mini-card {
-      padding: 16px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.50);
-      border: 1px solid rgba(255,255,255,0.58);
-    }
-
-    .mini-card h3 {
-      color: var(--pink);
-      font-size: 0.95rem;
-      margin-bottom: 6px;
-    }
-
-    .mini-card p {
-      font-size: 0.95rem;
-      line-height: 1.55;
-      color: var(--text-soft);
-    }
-
-    .list-clean {
-      list-style: none;
-      display: grid;
-      gap: 8px;
-    }
-
-    .list-clean li {
-      position: relative;
-      padding-left: 16px;
-    }
-
-    .list-clean li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.76em;
-      transform: translateY(-50%);
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--pink);
-      box-shadow: 0 0 0 6px rgba(201, 91, 150, 0.08);
-    }
-
-    .sizes-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    .size-card {
-      display: grid;
-      gap: 14px;
-      border-radius: 26px;
-      padding: 16px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(255,255,255,0.62);
-      box-shadow: var(--shadow);
-    }
-
-    .size-image {
-      position: relative;
-      border-radius: 24px;
-      overflow: hidden;
-      min-height: 290px;
-      background: #efe8ec;
-    }
-
-    .size-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .size-tag {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      min-height: 40px;
-      padding: 0 14px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 900;
-      color: #fff;
-      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
-      box-shadow: 0 10px 20px rgba(201, 91, 150, 0.22);
-      z-index: 2;
-    }
-
-    .size-info h3 {
-      font-size: 1.32rem;
-      color: var(--pink);
-      margin-bottom: 4px;
-    }
-
-    .yield {
-      color: #d38eb2;
-      font-size: 0.98rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
-    .price-lines {
-      display: grid;
-      gap: 8px;
-    }
-
-    .price-line {
-      display: grid;
-      gap: 4px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.58);
-      border: 1px solid rgba(90,56,44,0.05);
-    }
-
-    .price-line strong {
-      color: var(--text);
-      font-size: 1rem;
-    }
-
-    .doces-price {
-      font-size: 1.45rem;
-      color: var(--pink);
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      margin-bottom: 10px;
-    }
-
-    .doces-note {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--pink-line);
-      display: grid;
-      gap: 8px;
-    }
-
-    .notice-number {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: inline-grid;
-      place-items: center;
-      color: #fff;
-      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
-      font-weight: 900;
-      margin-bottom: 10px;
-      box-shadow: 0 10px 20px rgba(201, 91, 150, 0.18);
-    }
-
-    .contact-links {
-      display: grid;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .contact-link {
-      min-height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 0 16px;
-      text-decoration: none;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(255,255,255,0.6);
-      font-weight: 900;
-    }
-
-    footer {
-      padding: 8px 0 82px;
-    }
-
-    .footer-card {
-      border-radius: 28px;
-      padding: 22px;
-      text-align: center;
-    }
-
-    .footer-card img {
-      width: 96px;
-      margin: 0 auto 14px;
-      opacity: 0.96;
-    }
-
-    .footer-card p {
-      max-width: 62ch;
-      margin: 0 auto 14px;
-      color: var(--text-soft);
-      line-height: 1.8;
-    }
-
-    .tag {
-      min-height: 42px;
-      padding: 0 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      border-radius: 999px;
-      font-weight: 900;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(255,255,255,0.62);
-    }
-
-    .float-whatsapp {
-      position: fixed;
-      right: 14px;
-      bottom: 14px;
-      z-index: 1200;
-      min-height: 58px;
-      padding: 0 18px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      text-decoration: none;
-      color: #fff;
-      font-weight: 900;
-      background: linear-gradient(135deg, var(--pink), var(--pink-dark));
-      box-shadow: 0 14px 28px rgba(201, 91, 150, 0.24);
-    }
-
-    @media (min-width: 720px) {
-      .container {
-        width: min(var(--max), calc(100% - 36px));
-      }
-
-      .hero-grid,
-      .quick-grid,
-      .grid.two,
-      .sizes-grid,
-      .grid.three {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero-actions {
-        grid-template-columns: repeat(3, max-content);
-        justify-content: flex-start;
-      }
-
-      .quick-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      .price-line {
-        grid-template-columns: 1fr auto;
-        align-items: center;
-      }
-    }
-
-    @media (min-width: 980px) {
-      .container {
-        width: min(var(--max), calc(100% - 48px));
-      }
-
-      .menu-toggle {
-        display: none;
-      }
-
-      nav {
-        position: static;
-        transform: none;
-        opacity: 1;
-        pointer-events: auto;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 0;
-        background: transparent;
-        border: 0;
-        box-shadow: none;
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-      }
-
-      nav a {
-        padding: 12px 16px;
-        border-radius: 999px;
-      }
-
-      .hero-grid {
-        grid-template-columns: 0.95fr 1.05fr;
-      }
-
-      .hero-copy {
-        padding: 34px;
-      }
-
-      .hero-visual {
-        min-height: 620px;
-      }
-
-      .section-card {
-        padding: 28px;
-      }
-
-      .sizes-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .size-card {
-        grid-template-columns: 360px 1fr;
-        align-items: center;
-        padding: 18px;
-      }
-
-      .grid.three {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-  </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Delícias da Mel</title>
+
+<meta name="description" content="Bolos personalizados e docinhos artesanais feitos com carinho.">
+
+<meta property="og:title" content="Delícias da Mel">
+<meta property="og:description" content="Bolos personalizados e docinhos artesanais feitos com carinho.">
+<meta property="og:image" content="bolo-destaque.jpeg">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Inter',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+background:
+linear-gradient(120deg,#ffffff,#fff3f8,#ffffff);
+
+color:#5b3a3a;
+
+overflow-x:hidden;
+
+}
+
+
+/* NAV */
+
+header{
+
+position:fixed;
+
+top:0;
+
+width:100%;
+
+padding:14px 20px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+background:rgba(255,255,255,0.75);
+
+backdrop-filter:blur(18px);
+
+border-bottom:1px solid rgba(0,0,0,0.04);
+
+z-index:999;
+
+}
+
+.logo{
+
+height:36px;
+
+}
+
+nav{
+
+display:flex;
+
+gap:8px;
+
+flex-wrap:wrap;
+
+}
+
+nav a{
+
+padding:8px 14px;
+
+border-radius:20px;
+
+text-decoration:none;
+
+background:#ffffff;
+
+color:#7a4a57;
+
+font-size:14px;
+
+}
+
+
+/* HERO */
+
+.hero{
+
+padding-top:110px;
+
+min-height:100vh;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+text-align:center;
+
+gap:25px;
+
+padding-left:20px;
+
+padding-right:20px;
+
+}
+
+.hero img{
+
+width:100%;
+
+max-width:420px;
+
+border-radius:30px;
+
+box-shadow:0 25px 80px rgba(0,0,0,0.06);
+
+animation:fadeUp 1s ease;
+
+}
+
+.hero h1{
+
+font-size:36px;
+
+font-weight:800;
+
+animation:fadeUp 1.2s ease;
+
+}
+
+.hero p{
+
+max-width:520px;
+
+line-height:1.6;
+
+color:#7a5a5a;
+
+animation:fadeUp 1.4s ease;
+
+}
+
+.btn{
+
+background:linear-gradient(135deg,#ff9ac6,#ff4fa3);
+
+color:white;
+
+padding:14px 26px;
+
+border-radius:30px;
+
+text-decoration:none;
+
+font-weight:600;
+
+box-shadow:0 8px 25px rgba(255,79,163,0.3);
+
+transition:0.3s;
+
+}
+
+.btn:hover{
+
+transform:translateY(-2px);
+
+}
+
+
+/* SECTIONS */
+
+section{
+
+max-width:950px;
+
+margin:auto;
+
+padding:70px 20px;
+
+animation:fadeUp 1s ease;
+
+}
+
+h2{
+
+font-size:28px;
+
+margin-bottom:18px;
+
+}
+
+
+/* CARDS */
+
+.card{
+
+background:rgba(255,255,255,0.8);
+
+backdrop-filter:blur(16px);
+
+border-radius:24px;
+
+padding:24px;
+
+margin-bottom:20px;
+
+box-shadow:0 10px 40px rgba(0,0,0,0.05);
+
+}
+
+
+/* DOCES CORES */
+
+#doce-card{
+
+background:linear-gradient(135deg,#fff,#ffeaf4);
+
+border:1px solid #ffd6e8;
+
+}
+
+.pink-title{
+
+color:#ff4fa3;
+
+font-weight:700;
+
+margin-bottom:6px;
+
+}
+
+
+/* BOLOS */
+
+.bolo{
+
+display:grid;
+
+gap:14px;
+
+}
+
+.bolo img{
+
+width:100%;
+
+border-radius:20px;
+
+}
+
+.price{
+
+color:#ff4fa3;
+
+font-weight:700;
+
+margin-top:8px;
+
+}
+
+
+/* GALERIA */
+
+.galeria{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+
+gap:15px;
+
+}
+
+.galeria img{
+
+width:100%;
+
+border-radius:20px;
+
+transition:0.3s;
+
+}
+
+.galeria img:hover{
+
+transform:scale(1.04);
+
+}
+
+
+/* WHATS */
+
+.whatsapp{
+
+position:fixed;
+
+bottom:20px;
+
+right:20px;
+
+background:linear-gradient(135deg,#ff9ac6,#ff4fa3);
+
+color:white;
+
+padding:16px 22px;
+
+border-radius:40px;
+
+font-weight:700;
+
+text-decoration:none;
+
+box-shadow:0 15px 40px rgba(0,0,0,0.2);
+
+}
+
+
+/* FOOTER */
+
+footer{
+
+margin-top:80px;
+
+padding:50px 20px;
+
+text-align:center;
+
+background:linear-gradient(180deg,transparent,#fff0f6);
+
+}
+
+footer img{
+
+height:44px;
+
+opacity:0.9;
+
+margin-bottom:10px;
+
+}
+
+footer p{
+
+font-size:13px;
+
+color:#9b6c79;
+
+}
+
+
+/* ANIMAÇÃO */
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(25px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.hero h1{
+
+font-size:28px;
+
+}
+
+}
+
+</style>
+
 </head>
+
+
+
 <body>
 
-  <header>
-    <div class="container nav">
-      <a href="#inicio" class="brand" aria-label="Ir para o início">
-        <img src="logo.png" alt="Logo Delícias da Mel">
-        <div class="brand-text">
-          <strong>Delícias da Mel</strong>
-          <span>Bolos e docinhos personalizados</span>
-        </div>
-      </a>
 
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mainNav">
-        <span></span>
-      </button>
 
-      <nav id="mainNav">
-        <a href="#bolos">Bolos</a>
-        <a href="#tamanhos">Tamanhos</a>
-        <a href="#docinhos">Docinhos</a>
-        <a href="#informacoes">Informações</a>
-        <a href="#contato">Contato</a>
-      </nav>
-    </div>
-  </header>
+<header>
 
-  <main>
-    <section class="hero" id="inicio">
-      <div class="container hero-grid">
-        <div class="hero-copy glass reveal">
-          <div class="eyebrow">Cardápio de bolos e doces</div>
-          <h1>Delicado no visual, forte na vitrine.</h1>
-          <p>
-            Bolos personalizados e docinhos por cento com uma apresentação leve,
-            elegante e pensada primeiro para o celular. Um site feito para a pessoa
-            abrir pelo Instagram e já sentir vontade de pedir.
-          </p>
+<img src="logo.png" class="logo">
 
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#contato">Fazer encomenda</a>
-            <a class="btn btn-secondary" href="#tamanhos">Ver tamanhos</a>
-            <a class="btn btn-secondary" href="#docinhos">Ver docinhos</a>
-          </div>
-        </div>
+<nav>
 
-        <div class="hero-visual glass reveal delay-1">
-          <img src="bolo-destaque.jpeg" alt="Bolo em destaque da Delícias da Mel">
-          <div class="hero-floating">
-            <strong>Bolo destaque</strong>
-            <span>
-              Acabamento elegante, estética delicada e presença visual que já vende
-              no primeiro olhar.
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
+<a href="#tamanhos">Tamanhos</a>
 
-    <section id="resumo">
-      <div class="container">
-        <div class="quick-grid reveal delay-2">
-          <article class="mini-card glass">
-            <h3>Antecedência</h3>
-            <p>Encomendas com no mínimo 5 dias.</p>
-          </article>
+<a href="#docinhos">Docinhos</a>
 
-          <article class="mini-card glass">
-            <h3>Pagamento</h3>
-            <p>50% na encomenda e restante na entrega.</p>
-          </article>
+<a href="#galeria">Galeria</a>
 
-          <article class="mini-card glass">
-            <h3>Cartão</h3>
-            <p>Link para cartão com acréscimo de 5%.</p>
-          </article>
+<a href="#info">Informações</a>
 
-          <article class="mini-card glass">
-            <h3>Instagram</h3>
-            <p>@deliciasdamel_2</p>
-          </article>
-        </div>
-      </div>
-    </section>
+<a href="#contato">Contato</a>
 
-    <section id="bolos">
-      <div class="container">
-        <div class="section-card glass reveal">
-          <div class="section-head">
-            <div class="pill-title">Monte seu bolo</div>
-            <h2>Massas, recheios e acabamento</h2>
-            <p>
-              Escolha a massa, o recheio e o estilo do bolo. A estrutura abaixo segue
-              o cardápio com recheios tradicionais, especiais, gourmet e as
-              observações sobre decoração.
-            </p>
-          </div>
+</nav>
 
-          <div class="grid three">
-            <article class="card">
-              <h3>Massas</h3>
-              <ul class="list-clean">
-                <li>Baunilha</li>
-                <li>Chocolate</li>
-              </ul>
-            </article>
+</header>
 
-            <article class="card">
-              <h3>Recheios tradicionais</h3>
-              <ul class="list-clean">
-                <li>Ninho com brigadeiro</li>
-                <li>Ninho com abacaxi</li>
-                <li>Coco com abacaxi</li>
-                <li>Chocolatudo</li>
-                <li>Prestígio</li>
-                <li>Paçoca com ninho</li>
-                <li>Paçoca com brigadeiro</li>
-                <li>Maracujá com brigadeiro</li>
-              </ul>
-            </article>
 
-            <article class="card">
-              <h3>Recheios especiais</h3>
-              <ul class="list-clean">
-                <li>Ninho com morango</li>
-                <li>Ninho, brigadeiro e morango</li>
-                <li>Brigadeiro com morango</li>
-                <li>Coco com abacaxi e doce de leite</li>
-                <li>Olho de sogra</li>
-                <li>Ninho com Nutella e morango</li>
-              </ul>
-            </article>
-          </div>
 
-          <div style="height:14px"></div>
+<div class="hero">
 
-          <div class="grid two">
-            <article class="card">
-              <h3>Recheios gourmet</h3>
-              <ul class="list-clean">
-                <li>Ninho com Nutella</li>
-                <li>Ninho com Oreo</li>
-                <li>Laka com morango</li>
-                <li>Brigadeiro gourmet</li>
-                <li>Nozes</li>
-                <li>Choconozes</li>
-                <li>Pistache com frutas vermelhas</li>
-              </ul>
-              <div class="doces-note">
-                <p>Acréscimo de 10% sobre o valor do bolo escolhido.</p>
-              </div>
-            </article>
+<img src="bolo-destaque.jpeg">
 
-            <article class="card">
-              <h3>Decoração</h3>
-              <ul class="list-clean">
-                <li>Decoração em chantilly</li>
-                <li>Topo de bolo cobrado à parte</li>
-                <li>Trabalho em bico, glitter e decoração gourmet com valores diferenciados</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
+<h1>
 
-    <section id="tamanhos">
-      <div class="container">
-        <div class="section-card glass reveal">
-          <div class="section-head">
-            <div class="pill-title">Tamanhos de bolo</div>
-            <h2>Cada tamanho com um bolo real</h2>
-            <p>
-              Cada card mostra um tamanho do cardápio junto com uma foto real,
-              ajudando a visualizar melhor antes de pedir.
-            </p>
-          </div>
+Delicado no visual,<br>
+forte na vitrine.
 
-          <div class="sizes-grid">
-            <article class="size-card">
-              <div class="size-image">
-                <span class="size-tag">PP</span>
-                <img src="bolo-pp.jpeg" alt="Bolo tamanho PP">
-              </div>
-              <div class="size-info">
-                <h3>Tamanho PP</h3>
-                <div class="yield">Rende 6 a 8 fatias</div>
-                <div class="price-lines">
-                  <div class="price-line">
-                    <span>13 cm · Recheio Tradicional</span>
-                    <strong>R$ 70,00</strong>
-                  </div>
-                  <div class="price-line">
-                    <span>13 cm · Recheio Especial</span>
-                    <strong>R$ 80,00</strong>
-                  </div>
-                  <div class="price-line">
-                    <span>13 cm · Recheio Gourmet</span>
-                    <strong>R$ 90,00</strong>
-                  </div>
-                </div>
-              </div>
-            </article>
+</h1>
 
-            <article class="size-card">
-              <div class="size-image">
-                <span class="size-tag">P</span>
-                <img src="bolo-p.jpeg" alt="Bolo tamanho P">
-              </div>
-              <div class="size-info">
-                <h3>Tamanho P</h3>
-                <div class="yield">Rende 13 a 15 fatias</div>
-                <div class="price-lines">
-                  <div class="price-line">
-                    <span>15 cm · Recheio Tradicional</span>
-                    <strong>R$ 110,00</strong>
-                  </div>
-                  <div class="price-line">
-                    <span>15 cm · Recheio Especial</span>
-                    <strong>R$ 125,00</strong>
-                  </div>
-                  <div class="price-line">
-                    <span>15 cm · Recheio Gourmet</span>
-                    <strong>R$ 145,00</strong>
-                  </div>
-                </div>
-              </div>
-            </article>
+<p>
 
-            <article class="size-card">
-              <div class="size-image">
-                <span class="size-tag">M</span>
-                <img src="bolo-m.jpeg" alt="Bolo tamanho M">
-              </div>
-              <div class="size-info">
-                <h3>Tamanho M</h3>
-                <div class="yield">Rende 25 a 30 fatias</div>
-                <div class="price-lines">
-                  <div class="price-line">
-                    <span>20 cm · Recheio Tradicional</span>
-                    <strong>R$ 180,00</strong>
-                  </div>
-                  <div class="price-line">
-                    <span>20 cm · Recheio Especial</span>
-                    <strong>R$ 195,00</strong>
-                  </div>
-                  <div class="price-line">
-                    <span>20 cm · Recheio Gourmet</span>
-                    <strong>R$ 210,00</strong>
-                  </div>
-                </div>
-              </div>
-            </article>
+Bolos personalizados e docinhos deliciosos com uma apresentação leve, elegante e pensada em cada cliente de uma forma especial.
 
-            <article class="size-card">
-              <div class="size-image">
-                <span class="size-tag">G</span>
-                <img src="bolo-g.jpeg" alt="Bolo tamanho G">
-              </div>
-              <div class="size-info">
-                <h3>Tamanho G</h3>
-                <div class="yield">Rende 40 a 45 fatias</div>
-                <div class="price-lines">
-                  <div class="price-line">
-                    <span>25 cm · Recheio Tradicional</span>
-                    <strong>R$ 260,00</strong>
-                  </div>
-                  <div class="price-line">
-                    <span>25 cm · Recheio Especial</span>
-                    <strong>R$ 280,00</strong>
-                  </div>
-                  <div class="price-line">
-                    <span>25 cm · Recheio Gourmet</span>
-                    <strong>R$ 300,00</strong>
-                  </div>
-                </div>
-              </div>
-            </article>
+Prezamos pela qualidade, conforto e confiança, por isso todos os nossos produtos são feitos de forma artesanal.
 
-            <article class="size-card">
-              <div class="size-image">
-                <span class="size-tag">GG</span>
-                <img src="bolo-gg.jpeg" alt="Bolo tamanho GG">
-              </div>
-              <div class="size-info">
-                <h3>Tamanho GG</h3>
-                <div class="yield">Rende 60 a 65 fatias</div>
-                <div class="price-lines">
-                  <div class="price-line">
-                    <span>30 cm · Recheio Tradicional</span>
-                    <strong>R$ 370,00</strong>
-                  </div>
-                  <div class="price-line">
-                    <span>30 cm · Recheio Especial</span>
-                    <strong>R$ 390,00</strong>
-                  </div>
-                  <div class="price-line">
-                    <span>30 cm · Recheio Gourmet</span>
-                    <strong>R$ 410,00</strong>
-                  </div>
-                </div>
-              </div>
-            </article>
+</p>
 
-            <article class="card">
-              <h3>Bolos retangulares</h3>
-              <p>
-                Valores a combinar diretamente pelo WhatsApp.
-              </p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
+<a class="btn"
 
-    <section id="docinhos">
-      <div class="container">
-        <div class="section-card glass reveal">
-          <div class="section-head">
-            <div class="pill-title">Docinhos</div>
-            <h2>Sabores por cento</h2>
-            <p>
-              Três categorias com opções tradicionais, especiais e gourmet, além das
-              observações de quantidade de sabores, peso médio e forminha.
-            </p>
-          </div>
+href="https://wa.me/553193980810?text=Olá,%20vim%20pelo%20site%20da%20Delícias%20da%20Mel.%20gostaria%20de%20fazer%20um%20pedido.">
 
-          <div class="grid three">
-            <article class="card">
-              <h3>Tradicionais</h3>
-              <div class="doces-price">R$ 115,00</div>
-              <ul class="list-clean">
-                <li>Brigadeiro</li>
-                <li>Beijinho de coco</li>
-                <li>Prestígio</li>
-                <li>Ouriço de amendoim</li>
-                <li>Ninho</li>
-                <li>Bicho de pé</li>
-                <li>Limão</li>
-              </ul>
-            </article>
+Fazer encomenda
 
-            <article class="card">
-              <h3>Especiais</h3>
-              <div class="doces-price">R$ 135,00</div>
-              <ul class="list-clean">
-                <li>Brigadeiro crocante</li>
-                <li>Olho de sogra</li>
-                <li>Dois amores</li>
-                <li>Palha italiana ninho</li>
-                <li>Palha italiana brigadeiro</li>
-                <li>Limão com coco queimado</li>
-                <li>Sensação</li>
-                <li>Ouriço de castanha</li>
-              </ul>
-            </article>
+</a>
 
-            <article class="card">
-              <h3>Gourmet</h3>
-              <div class="doces-price">R$ 165,00</div>
-              <ul class="list-clean">
-                <li>Brigadeiro gourmet</li>
-                <li>Ninho com Nutella</li>
-                <li>Tipo Ferrero</li>
-                <li>Caipirinha</li>
-                <li>Churros</li>
-                <li>Oreo</li>
-                <li>Creme Brulê</li>
-                <li>Surpresa de uva</li>
-                <li>Romeu e Julieta</li>
-              </ul>
-            </article>
-          </div>
+</div>
 
-          <div style="height:14px"></div>
 
-          <article class="card">
-            <h3>Observações dos docinhos</h3>
-            <div class="doces-note">
-              <p>No máximo 3 sabores por cento.</p>
-              <p>Doces com média de 15g.</p>
-              <p>Acompanha forminha pétala.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
 
-    <section id="informacoes">
-      <div class="container">
-        <div class="section-card glass reveal">
-          <div class="section-head">
-            <div class="pill-title">Informações importantes</div>
-            <h2>Pagamento, antecedência e instruções</h2>
-            <p>
-              Tudo que a cliente precisa saber antes de fechar o pedido.
-            </p>
-          </div>
+<section id="tamanhos">
 
-          <div class="grid two">
-            <article class="card">
-              <h3>Forma de pagamento</h3>
-              <ul class="list-clean">
-                <li>50% de entrada no ato da encomenda</li>
-                <li>Restante na entrega</li>
-                <li>Pix</li>
-                <li>Em dinheiro</li>
-                <li>Link para cartão com acréscimo de 5%</li>
-              </ul>
-            </article>
+<h2>Tamanhos de bolo</h2>
 
-            <article class="card">
-              <h3>Prazo mínimo</h3>
-              <p>
-                As encomendas devem ser feitas com no mínimo 5 dias de antecedência.
-              </p>
-            </article>
+<div class="card bolo">
 
-            <article class="card">
-              <div class="notice-number">1</div>
-              <p>O número de fatias pode variar de acordo com a espessura do corte.</p>
-            </article>
+<img src="bolo-pp.jpeg">
 
-            <article class="card">
-              <div class="notice-number">2</div>
-              <p>Não há responsabilidade por acidentes depois da entrega do bolo.</p>
-            </article>
+PP • 6 a 8 fatias
 
-            <article class="card">
-              <div class="notice-number">3</div>
-              <p>Em caso de desistência 24 horas antes da entrega, não há devolução dos 50% pagos.</p>
-            </article>
+<div class="price">
 
-            <article class="card">
-              <div class="notice-number">4</div>
-              <p>A encomenda precisa ser retirada na data e horário marcados. Em caso de atraso, entrar em contato.</p>
-            </article>
+R$70 • R$80 • R$90
 
-            <article class="card">
-              <div class="notice-number">5</div>
-              <p>Embalagem para transporte de bolos com acréscimo de R$ 10,00.</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
+</div>
 
-    <section id="contato">
-      <div class="container">
-        <div class="section-card glass reveal">
-          <div class="section-head">
-            <div class="pill-title">Contato</div>
-            <h2>Faça sua encomenda</h2>
-            <p>
-              Clique para falar direto no WhatsApp com uma mensagem pronta, ou acesse
-              o Instagram da marca.
-            </p>
-          </div>
+</div>
 
-          <div class="grid two">
-            <article class="card">
-              <h3>Atendimento</h3>
-              <p>
-                Procuro trabalhar com dedicação e amor, agradeço a você que deposita
-                sua confiança em mim para tornar sua comemoração mais doce.
-              </p>
 
-              <div class="contact-links">
-                <a
-                  class="contact-link"
-                  href="https://wa.me/553193980810?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Del%C3%ADcias%20da%20Mel.%20Gostaria%20de%20fazer%20um%20or%C3%A7amento%20ou%20pedido.%20Poderia%20me%20informar%20valores%2C%20sabores%20e%20disponibilidade%3F"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span>WhatsApp</span>
-                  <strong>Fazer pedido</strong>
-                </a>
+<div class="card bolo">
 
-                <a
-                  class="contact-link"
-                  href="https://instagram.com/deliciasdamel_2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <span>Instagram</span>
-                  <strong>@deliciasdamel_2</strong>
-                </a>
-              </div>
-            </article>
+<img src="bolo-p.jpeg">
 
-            <article class="card">
-              <h3>Resumo rápido</h3>
-              <ul class="list-clean">
-                <li>Bolos personalizados</li>
-                <li>Docinhos por cento</li>
-                <li>Até 3 sabores por cento nos docinhos</li>
-                <li>Antecedência mínima de 5 dias</li>
-                <li>Bolos retangulares sob consulta</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+P • 13 a 15 fatias
 
-  <footer>
-    <div class="container">
-      <div class="footer-card glass">
-        <img src="logo.png" alt="Logo Delícias da Mel">
-        <p>
-          Delícias da Mel. Um site com estética refinada, pensado para vitrine digital,
-          com foco em celular, apresentação clara do cardápio e contato rápido para pedido.
-        </p>
-        <a
-          class="tag"
-          href="https://instagram.com/deliciasdamel_2"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          @deliciasdamel_2
-        </a>
-      </div>
-    </div>
-  </footer>
+<div class="price">
 
-  <a
-    class="float-whatsapp"
-    href="https://wa.me/553193980810?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Del%C3%ADcias%20da%20Mel.%20Gostaria%20de%20fazer%20um%20or%C3%A7amento%20ou%20pedido.%20Poderia%20me%20informar%20valores%2C%20sabores%20e%20disponibilidade%3F"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Abrir conversa no WhatsApp"
-  >
-    WhatsApp
-  </a>
+R$110 • R$125 • R$145
 
-  <script>
-    const menuToggle = document.getElementById('menuToggle');
-    const mainNav = document.getElementById('mainNav');
-    const navLinks = mainNav.querySelectorAll('a');
+</div>
 
-    function closeMenu() {
-      mainNav.classList.remove('open');
-      menuToggle.classList.remove('active');
-      menuToggle.setAttribute('aria-expanded', 'false');
-    }
+</div>
 
-    function openMenu() {
-      mainNav.classList.add('open');
-      menuToggle.classList.add('active');
-      menuToggle.setAttribute('aria-expanded', 'true');
-    }
 
-    menuToggle.addEventListener('click', () => {
-      const isOpen = mainNav.classList.contains('open');
-      isOpen ? closeMenu() : openMenu();
-    });
+<div class="card bolo">
 
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth < 980) closeMenu();
-      });
-    });
+<img src="bolo-m.jpeg">
 
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 980) {
-        closeMenu();
-      }
-    });
+M • 25 a 30 fatias
 
-    document.addEventListener('click', (e) => {
-      const clickedInsideNav = mainNav.contains(e.target);
-      const clickedToggle = menuToggle.contains(e.target);
+<div class="price">
 
-      if (!clickedInsideNav && !clickedToggle && window.innerWidth < 980) {
-        closeMenu();
-      }
-    });
-  </script>
+R$180 • R$195 • R$210
+
+</div>
+
+</div>
+
+
+<div class="card bolo">
+
+<img src="bolo-g.jpeg">
+
+G • 40 a 45 fatias
+
+<div class="price">
+
+R$260 • R$280 • R$300
+
+</div>
+
+</div>
+
+
+<div class="card bolo">
+
+<img src="bolo-gg.jpeg">
+
+GG • 60 a 65 fatias
+
+<div class="price">
+
+R$370 • R$390 • R$410
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section id="docinhos">
+
+<h2>Docinhos por cento</h2>
+
+
+
+<div class="card" id="doce-card">
+
+<div class="pink-title">
+
+Tradicionais — R$115
+
+</div>
+
+Brigadeiro<br>
+
+Beijinho<br>
+
+Prestígio<br>
+
+Ninho<br>
+
+Bicho de pé<br>
+
+Limão
+
+</div>
+
+
+
+<div class="card" id="doce-card">
+
+<div class="pink-title">
+
+Especiais — R$135
+
+</div>
+
+Dois amores<br>
+
+Olho de sogra<br>
+
+Palha italiana<br>
+
+Sensação
+
+</div>
+
+
+
+<div class="card" id="doce-card">
+
+<div class="pink-title">
+
+Gourmet — R$165
+
+</div>
+
+Brigadeiro gourmet<br>
+
+Ninho com Nutella<br>
+
+Ferrero<br>
+
+Oreo<br>
+
+Churros
+
+</div>
+
+
+
+</section>
+
+
+
+<section id="galeria">
+
+<h2>Alguns trabalhos</h2>
+
+<div class="galeria">
+
+<img src="bolo-destaque.jpeg">
+
+<img src="bolo-m.jpeg">
+
+<img src="bolo-g.jpeg">
+
+<img src="bolo-gg.jpeg">
+
+</div>
+
+</section>
+
+
+
+<section id="info">
+
+<h2>Informações importantes</h2>
+
+<div class="card">
+
+Antecedência mínima de 5 dias.
+
+<br><br>
+
+Forma de pagamento:
+
+<br>
+
+50% pago no ato da encomenda
+
+<br>
+
+50% restantes pagos na entrega
+
+<br><br>
+
+Pix<br>
+
+Dinheiro<br>
+
+Cartão com acréscimo de 5%
+
+</div>
+
+</section>
+
+
+
+<section id="contato">
+
+<h2>Contato</h2>
+
+<div class="card">
+
+Instagram:
+
+<br>
+
+@deliciasdamel_2
+
+<br><br>
+
+<a class="btn"
+
+href="https://wa.me/553193980810?text=Olá,%20vim%20pelo%20site%20da%20Delícias%20da%20Mel.%20gostaria%20de%20fazer%20um%20pedido.">
+
+Pedir no WhatsApp
+
+</a>
+
+</div>
+
+</section>
+
+
+
+<footer>
+
+<img src="logo.png">
+
+<p>
+
+Delícias da Mel<br>
+
+Bolos e docinhos personalizados
+
+</p>
+
+</footer>
+
+
+
+<a class="whatsapp"
+
+href="https://wa.me/553193980810?text=Olá,%20vim%20pelo%20site%20da%20Delícias%20da%20Mel.%20gostaria%20de%20fazer%20um%20pedido.">
+
+WhatsApp
+
+</a>
+
+
+
 </body>
+
 </html>
