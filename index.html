@@ -1,637 +1,486 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Delícias da Mel</title>
-
-<meta name="description" content="Bolos personalizados e docinhos artesanais feitos com carinho.">
-
-<meta property="og:title" content="Delícias da Mel">
-<meta property="og:description" content="Bolos personalizados e docinhos artesanais feitos com carinho.">
-<meta property="og:image" content="bolo-destaque.jpeg">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Inter',sans-serif;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-body{
-background:linear-gradient(120deg,#ffffff,#fff3f8,#ffffff);
-color:#5b3a3a;
-overflow-x:hidden;
-}
-
-
-/* MENU */
-
-header{
-
-position:fixed;
-top:0;
-width:100%;
-padding:14px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-background:rgba(255,255,255,0.75);
-backdrop-filter:blur(18px);
-
-border-bottom:1px solid rgba(0,0,0,0.04);
-
-z-index:999;
-
-}
-
-.logo{
-height:38px;
-}
-
-nav{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-}
-
-nav a{
-
-padding:8px 16px;
-border-radius:20px;
-text-decoration:none;
-background:rgba(255,255,255,0.85);
-color:#7a4a57;
-font-size:14px;
-transition:0.25s;
-
-}
-
-nav a:hover{
-background:#ffeaf4;
-}
-
-
-/* HERO */
-
-.hero{
-
-padding-top:110px;
-min-height:100vh;
-
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-
-text-align:center;
-gap:25px;
-
-padding-left:20px;
-padding-right:20px;
-
-}
-
-.hero img{
-
-width:100%;
-max-width:420px;
-
-border-radius:30px;
-
-box-shadow:0 25px 80px rgba(0,0,0,0.06);
-
-}
-
-.hero h1{
-
-font-size:36px;
-font-weight:800;
-
-}
-
-.hero p{
-
-max-width:520px;
-line-height:1.6;
-color:#7a5a5a;
-
-}
-
-.btn{
-
-background:linear-gradient(135deg,#ff9ac6,#ff4fa3);
-
-color:white;
-padding:14px 26px;
-
-border-radius:30px;
-text-decoration:none;
-
-font-weight:600;
-
-box-shadow:0 8px 25px rgba(255,79,163,0.3);
-
-}
-
-
-/* SECTIONS */
-
-section{
-
-max-width:950px;
-margin:auto;
-
-padding:70px 20px;
-
-}
-
-h2{
-
-font-size:28px;
-margin-bottom:18px;
-
-}
-
-
-/* CARDS */
-
-.card{
-
-background:rgba(255,255,255,0.85);
-
-backdrop-filter:blur(16px);
-
-border-radius:24px;
-
-padding:24px;
-margin-bottom:20px;
-
-box-shadow:0 10px 40px rgba(0,0,0,0.05);
-
-}
-
-
-/* DOCES */
-
-#doce-card{
-
-background:linear-gradient(135deg,#fff,#ffeaf4);
-
-border:1px solid #ffd6e8;
-
-}
-
-.pink-title{
-
-color:#ff4fa3;
-font-weight:700;
-margin-bottom:6px;
-
-}
-
-
-/* BOLOS */
-
-.bolo{
-
-display:grid;
-gap:14px;
-
-}
-
-.bolo img{
-
-width:100%;
-border-radius:20px;
-
-}
-
-.price{
-
-color:#ff4fa3;
-font-weight:700;
-
-}
-
-
-/* GALERIA INSTAGRAM */
-
-.galeria-scroll{
-
-display:flex;
-
-gap:16px;
-
-overflow-x:auto;
-
-padding-bottom:10px;
-
-scroll-snap-type:x mandatory;
-
-}
-
-.galeria-scroll img{
-
-height:230px;
-
-border-radius:18px;
-
-scroll-snap-align:start;
-
-flex-shrink:0;
-
-box-shadow:0 10px 30px rgba(0,0,0,0.08);
-
-transition:0.3s;
-
-}
-
-.galeria-scroll img:hover{
-
-transform:scale(1.04);
-
-}
-
-
-/* WHATS */
-
-.whatsapp{
-
-position:fixed;
-bottom:20px;
-right:20px;
-
-background:linear-gradient(135deg,#ff9ac6,#ff4fa3);
-
-color:white;
-
-padding:16px 22px;
-
-border-radius:40px;
-
-font-weight:700;
-
-text-decoration:none;
-
-box-shadow:0 15px 40px rgba(0,0,0,0.2);
-
-}
-
-
-/* FOOTER */
-
-footer{
-
-margin-top:80px;
-
-padding:50px 20px;
-
-text-align:center;
-
-background:linear-gradient(180deg,transparent,#fff0f6);
-
-}
-
-footer img{
-
-height:44px;
-
-opacity:0.9;
-
-margin-bottom:10px;
-
-}
-
-footer p{
-
-font-size:13px;
-
-color:#9b6c79;
-
-}
-
-
-/* MOBILE */
-
-@media(max-width:700px){
-
-.hero h1{
-
-font-size:28px;
-
-}
-
-.galeria-scroll img{
-
-height:200px;
-
-}
-
-}
-
-</style>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Delícias da Mel</title>
+  <meta
+    name="description"
+    content="Bolos personalizados e docinhos artesanais feitos com carinho."
+  />
+
+  <meta property="og:title" content="Delícias da Mel" />
+  <meta
+    property="og:description"
+    content="Bolos personalizados e docinhos artesanais feitos com carinho."
+  />
+  <meta property="og:image" content="bolo-destaque.jpeg" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(120deg, #ffffff, #fff3f8, #ffffff);
+      color: #5b3a3a;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      z-index: 999;
+      gap: 12px;
+    }
+
+    .logo {
+      height: 38px;
+      flex-shrink: 0;
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      padding: 8px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      color: #7a4a57;
+      font-size: 14px;
+      transition: 0.25s;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    }
+
+    nav a:hover {
+      background: #ffeaf4;
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      padding-top: 110px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 25px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 30px;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.06);
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      max-width: 560px;
+      line-height: 1.7;
+      color: #7a5a5a;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #ff9ac6, #ff4fa3);
+      color: white;
+      padding: 14px 26px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 8px 25px rgba(255, 79, 163, 0.3);
+      transition: 0.25s;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    section {
+      max-width: 950px;
+      margin: auto;
+      padding: 70px 20px;
+    }
+
+    h2 {
+      font-size: 28px;
+      margin-bottom: 18px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    }
+
+    #doce-card {
+      background: linear-gradient(135deg, #fff, #ffeaf4);
+      border: 1px solid #ffd6e8;
+    }
+
+    .pink-title {
+      color: #ff4fa3;
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+
+    .bolo {
+      display: grid;
+      gap: 14px;
+    }
+
+    .bolo img {
+      width: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+
+    .price {
+      color: #ff4fa3;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .galeria-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .galeria-scroll img {
+      height: 230px;
+      border-radius: 18px;
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: 0.3s;
+      object-fit: cover;
+    }
+
+    .galeria-scroll img:hover {
+      transform: scale(1.04);
+    }
+
+    .galeria-scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .galeria-scroll::-webkit-scrollbar-thumb {
+      background: #ffd6e8;
+      border-radius: 999px;
+    }
+
+    .instagram-link {
+      color: #ff4fa3;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .instagram-link:hover {
+      text-decoration: underline;
+    }
+
+    .whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #ff9ac6, #ff4fa3);
+      color: white;
+      padding: 16px 22px;
+      border-radius: 40px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      z-index: 998;
+    }
+
+    footer {
+      margin-top: 80px;
+      padding: 50px 20px;
+      text-align: center;
+      background: linear-gradient(180deg, transparent, #fff0f6);
+    }
+
+    footer img {
+      height: 44px;
+      opacity: 0.9;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: #9b6c79;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        padding: 12px 14px;
+      }
+
+      .logo {
+        height: 32px;
+      }
+
+      nav a {
+        font-size: 13px;
+        padding: 7px 12px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .galeria-scroll img {
+        height: 200px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
 </head>
 
-
-
 <body>
-
-
-
-<header>
-
-<img src="logo.png" class="logo">
-
-<nav>
-
-<a href="#tamanhos">Tamanhos</a>
-
-<a href="#docinhos">Docinhos</a>
-
-<a href="#galeria">Galeria</a>
-
-<a href="#info">Informações</a>
-
-<a href="#contato">Contato</a>
-
-</nav>
-
-</header>
-
-
-
-<div class="hero">
-
-<img src="bolo-destaque.jpeg">
-
-<h1>
-
-Delicado no visual,<br>
-forte na vitrine.
-
-</h1>
-
-<p>
-
-Bolos personalizados e docinhos deliciosos com uma apresentação leve, elegante e pensada em cada cliente de uma forma especial.
-
-Prezamos pela qualidade, conforto e confiança, por isso todos os nossos produtos são feitos de forma artesanal.
-
-</p>
-
-<a class="btn"
-
-href="https://wa.me/553193980810?text=Olá,%20vim%20pelo%20site%20da%20Delícias%20da%20Mel.%20gostaria%20de%20fazer%20um%20pedido.">
-
-Fazer encomenda
-
-</a>
-
-</div>
-
-
-
-<section id="tamanhos">
-
-<h2>Tamanhos de bolo</h2>
-
-<div class="card bolo">
-
-<img src="bolo-pp.jpeg">
-
-PP • 6 a 8 fatias
-
-<div class="price">R$70 • R$80 • R$90</div>
-
-</div>
-
-
-<div class="card bolo">
-
-<img src="bolo-p.jpeg">
-
-P • 13 a 15 fatias
-
-<div class="price">R$110 • R$125 • R$145</div>
-
-</div>
-
-
-<div class="card bolo">
-
-<img src="bolo-m.jpeg">
-
-M • 25 a 30 fatias
-
-<div class="price">R$180 • R$195 • R$210</div>
-
-</div>
-
-
-<div class="card bolo">
-
-<img src="bolo-g.jpeg">
-
-G • 40 a 45 fatias
-
-<div class="price">R$260 • R$280 • R$300</div>
-
-</div>
-
-
-<div class="card bolo">
-
-<img src="bolo-gg.jpeg">
-
-GG • 60 a 65 fatias
-
-<div class="price">R$370 • R$390 • R$410</div>
-
-</div>
-
-</section>
-
-
-
-<section id="docinhos">
-
-<h2>Docinhos por cento</h2>
-
-
-<div class="card" id="doce-card">
-
-<div class="pink-title">Tradicionais — R$115</div>
-
-Brigadeiro<br>
-Beijinho<br>
-Prestígio<br>
-Ninho<br>
-Bicho de pé<br>
-Limão
-
-</div>
-
-
-<div class="card" id="doce-card">
-
-<div class="pink-title">Especiais — R$135</div>
-
-Dois amores<br>
-Olho de sogra<br>
-Palha italiana<br>
-Sensação
-
-</div>
-
-
-<div class="card" id="doce-card">
-
-<div class="pink-title">Gourmet — R$165</div>
-
-Brigadeiro gourmet<br>
-Ninho com Nutella<br>
-Ferrero<br>
-Oreo<br>
-Churros
-
-</div>
-
-</section>
-
-
-
-<section id="galeria">
-
-<h2>Galeria</h2>
-
-<div class="galeria-scroll">
-
-<img src="galeria1.jpeg">
-<img src="galeria2.jpeg">
-<img src="galeria3.jpeg">
-<img src="galeria4.jpeg">
-<img src="galeria5.jpeg">
-<img src="galeria6.jpeg">
-<img src="galeria7.jpeg">
-<img src="galeria8.jpeg">
-<img src="galeria9.jpeg">
-<img src="galeria10.jpeg">
-<img src="galeria11.jpeg">
-<img src="galeria12.jpeg">
-<img src="galeria13.jpeg">
-
-</div>
-
-</section>
-
-
-
-<section id="info">
-
-<h2>Informações importantes</h2>
-
-<div class="card">
-
-Antecedência mínima de 5 dias.
-
-<br><br>
-
-Forma de pagamento:
-
-<br>
-
-50% pago no ato da encomenda
-
-<br>
-
-50% restantes pagos na entrega
-
-<br><br>
-
-Pix<br>
-Dinheiro<br>
-Cartão com acréscimo de 5%
-
-</div>
-
-</section>
-
-
-
-<section id="contato">
-
-<h2>Contato</h2>
-
-<div class="card">
-
-Instagram:
-
-<br>
-
-<a href="https://instagram.com/deliciasdamel_2"
-target="_blank"
-style="color:#ff4fa3;font-weight:600;text-decoration:none">
-
-@deliciasdamel_2
-
-</a>
-
-<br><br>
-
-<a class="btn"
-
-href="https://wa.me/553193980810?text=Olá,%20vim%20pelo%20site%20da%20Delícias%20da%20Mel.%20gostaria%20de%20fazer%20um%20pedido.">
-
-Pedir no WhatsApp
-
-</a>
-
-</div>
-
-</section>
-
-
-
-<footer>
-
-<img src="logo.png">
-
-<p>
-
-Delícias da Mel<br>
-
-Bolos e docinhos personalizados
-
-</p>
-
-</footer>
-
-
-
-<a class="whatsapp"
-
-href="https://wa.me/553193980810?text=Olá,%20vim%20pelo%20site%20da%20Delícias%20da%20Mel.%20gostaria%20de%20fazer%20um%20pedido.">
-
-WhatsApp
-
-</a>
-
-
-
+  <header>
+    <img src="logo.png" class="logo" alt="Logo Delícias da Mel" />
+
+    <nav>
+      <a href="#tamanhos">Tamanhos</a>
+      <a href="#docinhos">Docinhos</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#info">Informações</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <img src="bolo-destaque.jpeg" alt="Bolo destaque Delícias da Mel" />
+
+    <h1>
+      Delicado no visual,<br>
+      forte na vitrine.
+    </h1>
+
+    <p>
+      Bolos personalizados e docinhos deliciosos com uma apresentação leve,
+      elegante e pensada em cada cliente de uma forma especial.
+      Prezamos pela qualidade, conforto e confiança, por isso todos os nossos
+      produtos são feitos de forma artesanal.
+    </p>
+
+    <a
+      class="btn"
+      href="https://wa.me/553193980810?text=Olá,%20vim%20pelo%20site%20da%20Delícias%20da%20Mel.%20gostaria%20de%20fazer%20um%20pedido."
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Fazer encomenda
+    </a>
+  </div>
+
+  <section id="tamanhos">
+    <h2>Tamanhos de bolo</h2>
+
+    <div class="card bolo">
+      <img src="bolo-pp.jpeg" alt="Bolo tamanho PP" />
+      <div>PP • 6 a 8 fatias</div>
+      <div class="price">A partir de R$70</div>
+    </div>
+
+    <div class="card bolo">
+      <img src="bolo-p.jpeg" alt="Bolo tamanho P" />
+      <div>P • 13 a 15 fatias</div>
+      <div class="price">A partir de R$110</div>
+    </div>
+
+    <div class="card bolo">
+      <img src="bolo-m.jpeg" alt="Bolo tamanho M" />
+      <div>M • 25 a 30 fatias</div>
+      <div class="price">A partir de R$180</div>
+    </div>
+
+    <div class="card bolo">
+      <img src="bolo-g.jpeg" alt="Bolo tamanho G" />
+      <div>G • 40 a 45 fatias</div>
+      <div class="price">A partir de R$260</div>
+    </div>
+
+    <div class="card bolo">
+      <img src="bolo-gg.jpeg" alt="Bolo tamanho GG" />
+      <div>GG • 60 a 65 fatias</div>
+      <div class="price">A partir de R$370</div>
+    </div>
+  </section>
+
+  <section id="docinhos">
+    <h2>Docinhos personalizados</h2>
+
+    <div class="card" id="doce-card">
+      <div class="pink-title">Tradicionais • a partir de R$115</div>
+      Brigadeiro<br>
+      Beijinho de coco<br>
+      Prestígio<br>
+      Ouriço de amendoim<br>
+      Ninho<br>
+      Bicho de pé<br>
+      Limão
+    </div>
+
+    <div class="card" id="doce-card">
+      <div class="pink-title">Especiais • a partir de R$135</div>
+      Brigadeiro crocante<br>
+      Olho de sogra<br>
+      Dois amores<br>
+      Palha italiana ninho<br>
+      Palha italiana brigadeiro<br>
+      Limão com coco queimado<br>
+      Sensação<br>
+      Ouriço de castanha
+    </div>
+
+    <div class="card" id="doce-card">
+      <div class="pink-title">Gourmet • a partir de R$165</div>
+      Brigadeiro gourmet<br>
+      Ninho com Nutella<br>
+      Tipo Ferrero<br>
+      Caipirinha<br>
+      Churros<br>
+      Oreo<br>
+      Creme Brulê<br>
+      Surpresa de uva<br>
+      Romeu e Julieta
+    </div>
+
+    <div class="card">
+      A quantidade pode variar conforme o pedido e a ocasião.
+    </div>
+  </section>
+
+  <section id="galeria">
+    <h2>Galeria</h2>
+
+    <div class="galeria-scroll">
+      <img src="galeria1.jpeg" alt="Foto da galeria 1" />
+      <img src="galeria2.jpeg" alt="Foto da galeria 2" />
+      <img src="galeria3.jpeg" alt="Foto da galeria 3" />
+      <img src="galeria4.jpeg" alt="Foto da galeria 4" />
+      <img src="galeria5.jpeg" alt="Foto da galeria 5" />
+      <img src="galeria6.jpeg" alt="Foto da galeria 6" />
+      <img src="galeria7.jpeg" alt="Foto da galeria 7" />
+      <img src="galeria8.jpeg" alt="Foto da galeria 8" />
+      <img src="galeria9.jpeg" alt="Foto da galeria 9" />
+      <img src="galeria10.jpeg" alt="Foto da galeria 10" />
+      <img src="galeria11.jpeg" alt="Foto da galeria 11" />
+      <img src="galeria12.jpeg" alt="Foto da galeria 12" />
+      <img src="galeria13.jpeg" alt="Foto da galeria 13" />
+    </div>
+  </section>
+
+  <section id="info">
+    <h2>Informações importantes</h2>
+
+    <div class="card">
+      Antecedência mínima de 5 dias.
+      <br><br>
+      Forma de pagamento:
+      <br>
+      50% pago no ato da encomenda
+      <br>
+      50% restantes pagos na entrega
+      <br><br>
+      Pix<br>
+      Dinheiro<br>
+      Cartão com acréscimo de 5%
+    </div>
+  </section>
+
+  <section id="contato">
+    <h2>Contato</h2>
+
+    <div class="card">
+      Instagram:
+      <br>
+
+      <a
+        href="https://instagram.com/deliciasdamel_2"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="instagram-link"
+      >
+        @deliciasdamel_2
+      </a>
+
+      <br><br>
+
+      <a
+        class="btn"
+        href="https://wa.me/553193980810?text=Olá,%20vim%20pelo%20site%20da%20Delícias%20da%20Mel.%20gostaria%20de%20fazer%20um%20pedido."
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Pedir no WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <img src="logo.png" alt="Logo Delícias da Mel" />
+    <p>
+      Delícias da Mel<br>
+      Bolos e docinhos personalizados
+    </p>
+  </footer>
+
+  <a
+    class="whatsapp"
+    href="https://wa.me/553193980810?text=Olá,%20vim%20pelo%20site%20da%20Delícias%20da%20Mel.%20gostaria%20de%20fazer%20um%20pedido."
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    WhatsApp
+  </a>
 </body>
-
 </html>
