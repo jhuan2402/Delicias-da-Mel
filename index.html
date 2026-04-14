@@ -15,6 +15,7 @@
     content="Bolos personalizados e docinhos artesanais feitos com carinho."
   />
   <meta property="og:image" content="bolo-destaque.jpeg" />
+  <link rel="icon" type="image/png" href="favicon-mel.png" />
 
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -53,12 +54,71 @@
       -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.35);
       z-index: 999;
+      gap: 16px;
+    }
+
+    .brand-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex-shrink: 0;
     }
 
     .logo {
       height: 38px;
       object-fit: contain;
       flex-shrink: 0;
+    }
+
+    .jvr-top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      border-radius: 14px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      background: rgba(20, 20, 20, 0.55);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: 0.25s ease;
+    }
+
+    .jvr-top::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.16),
+        rgba(255, 255, 255, 0.02)
+      );
+      pointer-events: none;
+    }
+
+    .jvr-top:hover {
+      transform: translateY(-2px) scale(1.04);
+      background: rgba(10, 10, 10, 0.72);
+      box-shadow:
+        0 14px 30px rgba(0, 0, 0, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+
+    .jvr-top img {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      display: block;
+      position: relative;
+      z-index: 1;
     }
 
     .menu-btn {
@@ -77,6 +137,7 @@
       gap: 5px;
       cursor: pointer;
       transition: 0.25s;
+      flex-shrink: 0;
     }
 
     .menu-btn span {
@@ -294,7 +355,7 @@
       background: linear-gradient(180deg, transparent, #fff0f6);
     }
 
-    footer img {
+    footer img.footer-logo {
       height: 44px;
       opacity: 0.9;
       margin-bottom: 10px;
@@ -304,6 +365,52 @@
       font-size: 13px;
       color: #9b6c79;
       line-height: 1.7;
+    }
+
+    .dev {
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #9b6c79;
+    }
+
+    .jvr-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 15px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.68);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      text-decoration: none;
+      color: #5b3a3a;
+      font-weight: 600;
+      transition: 0.22s ease;
+      box-shadow:
+        0 10px 28px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+    }
+
+    .jvr-link:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: #ffeaf4;
+      box-shadow:
+        0 14px 34px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .jvr-link img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: rgba(20, 20, 20, 0.72);
+      padding: 2px;
     }
 
     @media (min-width: 768px) {
@@ -343,13 +450,51 @@
       h2 {
         font-size: 24px;
       }
+
+      .whatsapp {
+        bottom: 16px;
+        right: 16px;
+        padding: 14px 18px;
+      }
+
+      .brand-area {
+        gap: 8px;
+      }
+
+      .logo {
+        height: 34px;
+      }
+
+      .jvr-top {
+        width: 34px;
+        height: 34px;
+        border-radius: 11px;
+      }
+
+      .jvr-top img {
+        width: 16px;
+        height: 16px;
+      }
     }
   </style>
 </head>
 
 <body>
   <header>
-    <img src="logo.png" class="logo" alt="Logo Delícias da Mel" />
+    <div class="brand-area">
+      <img src="logo.png" class="logo" alt="Logo Delícias da Mel" />
+
+      <a
+        href="jvr.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="jvr-top"
+        title="Abrir site da JVR Studio"
+        aria-label="Abrir site da JVR Studio"
+      >
+        <img src="logo-jvr.png" alt="JVR Studio" />
+      </a>
+    </div>
 
     <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
       <span></span>
@@ -430,37 +575,37 @@
 
     <div class="card" id="doce-card">
       <div class="pink-title">Tradicionais • a partir de R$115</div>
-      Brigadeiro<br>
-      Beijinho de coco<br>
-      Prestígio<br>
-      Ouriço de amendoim<br>
-      Ninho<br>
-      Bicho de pé<br>
+      Brigadeiro<br />
+      Beijinho de coco<br />
+      Prestígio<br />
+      Ouriço de amendoim<br />
+      Ninho<br />
+      Bicho de pé<br />
       Limão
     </div>
 
     <div class="card" id="doce-card">
       <div class="pink-title">Especiais • a partir de R$135</div>
-      Brigadeiro crocante<br>
-      Olho de sogra<br>
-      Dois amores<br>
-      Palha italiana ninho<br>
-      Palha italiana brigadeiro<br>
-      Limão com coco queimado<br>
-      Sensação<br>
+      Brigadeiro crocante<br />
+      Olho de sogra<br />
+      Dois amores<br />
+      Palha italiana ninho<br />
+      Palha italiana brigadeiro<br />
+      Limão com coco queimado<br />
+      Sensação<br />
       Ouriço de castanha
     </div>
 
     <div class="card" id="doce-card">
       <div class="pink-title">Gourmet • a partir de R$165</div>
-      Brigadeiro gourmet<br>
-      Ninho com Nutella<br>
-      Tipo Ferrero<br>
-      Caipirinha<br>
-      Churros<br>
-      Oreo<br>
-      Creme Brulê<br>
-      Surpresa de uva<br>
+      Brigadeiro gourmet<br />
+      Ninho com Nutella<br />
+      Tipo Ferrero<br />
+      Caipirinha<br />
+      Churros<br />
+      Oreo<br />
+      Creme Brulê<br />
+      Surpresa de uva<br />
       Romeu e Julieta
     </div>
 
@@ -494,15 +639,15 @@
 
     <div class="card">
       Antecedência mínima de 5 dias.
-      <br><br>
+      <br /><br />
       Forma de pagamento:
-      <br>
+      <br />
       50% pago no ato da encomenda
-      <br>
+      <br />
       50% restantes pagos na entrega
-      <br><br>
-      Pix<br>
-      Dinheiro<br>
+      <br /><br />
+      Pix<br />
+      Dinheiro<br />
       Cartão com acréscimo de 5%
     </div>
   </section>
@@ -512,7 +657,7 @@
 
     <div class="card">
       Instagram:
-      <br>
+      <br />
 
       <a
         href="https://instagram.com/deliciasdamel_2"
@@ -523,7 +668,7 @@
         @deliciasdamel_2
       </a>
 
-      <br><br>
+      <br /><br />
 
       <a
         class="btn"
@@ -537,11 +682,27 @@
   </section>
 
   <footer>
-    <img src="logo.png" alt="Logo Delícias da Mel" />
+    <img src="logo.png" alt="Logo Delícias da Mel" class="footer-logo" />
     <p>
-      Delícias da Mel<br>
+      Delícias da Mel<br />
       Bolos e docinhos personalizados
     </p>
+
+    <div class="dev">
+      <span>Desenvolvido por</span>
+
+      <a
+        href="jvr.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="jvr-link"
+        title="Abrir site da JVR Studio"
+        aria-label="Abrir site da JVR Studio"
+      >
+        <img src="logo-jvr.png" alt="JVR Studio" />
+        <span>JVR Studio</span>
+      </a>
+    </div>
   </footer>
 
   <a
