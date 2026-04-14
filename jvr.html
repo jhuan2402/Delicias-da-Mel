@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JVR Studio</title>
+  <meta name="description" content="JVR Studio - criação de sites e identidade visual com presença marcante." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #050505;
+      --bg-soft: #0d0d0d;
+      --panel: rgba(255,255,255,0.06);
+      --panel-strong: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.12);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,0.72);
+      --muted-2: rgba(255,255,255,0.52);
+      --accent: #d9d9d9;
+      --shadow: 0 24px 80px rgba(0,0,0,0.45);
+      --radius: 28px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top center, rgba(255,255,255,0.08), transparent 28%),
+        linear-gradient(180deg, #0a0a0a 0%, #040404 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.07;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 85%);
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter><rect width="180" height="180" filter="url(%23n)" opacity="1"/></svg>');
+    }
+
+    .wrapper {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 32px 0;
+    }
+
+    .hero-card {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 36px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(16px);
+      opacity: 0.16;
+      pointer-events: none;
+    }
+
+    .hero-card::before {
+      width: 320px;
+      height: 320px;
+      left: -120px;
+      top: -120px;
+      background: radial-gradient(circle, #ffffff, transparent 68%);
+    }
+
+    .hero-card::after {
+      width: 360px;
+      height: 360px;
+      right: -140px;
+      bottom: -140px;
+      background: radial-gradient(circle, #8f8f8f, transparent 68%);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .brand-mini {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: rgba(255,255,255,0.76);
+    }
+
+    .brand-mini img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      padding: 5px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .tag {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.76);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 28px;
+      padding: 30px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      padding: 12px 8px 12px 4px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.82);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.5rem, 5vw, 4.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      text-wrap: balance;
+    }
+
+    .hero-copy p {
+      max-width: 620px;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.7vw, 1.08rem);
+      line-height: 1.85;
+      margin-bottom: 30px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 58px;
+      padding: 16px 22px;
+      border-radius: 18px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      transition: transform 0.24s ease, background 0.24s ease, opacity 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .btn-icon {
+      justify-content: flex-start;
+      padding-right: 24px;
+    }
+
+    .btn-app-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: cover;
+      border-radius: 9px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.32);
+      flex-shrink: 0;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      color: #050505;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+      box-shadow:
+        0 10px 30px rgba(255,255,255,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(20,20,20,0.85), rgba(10,10,10,0.65));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 10px 30px rgba(0,0,0,0.55);
+    }
+
+    .btn-dark {
+      color: #fff;
+      background: linear-gradient(180deg, rgba(18,18,18,0.9), rgba(8,8,8,0.85));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 12px 34px rgba(0,0,0,0.6);
+    }
+
+    .btn-dark:hover {
+      background: linear-gradient(180deg, rgba(28,28,28,0.95), rgba(12,12,12,0.9));
+      border-color: rgba(255,255,255,0.22);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .micro-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.72);
+      padding: 11px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .frame {
+      width: min(100%, 450px);
+      aspect-ratio: 4 / 5;
+      border-radius: 34px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03)),
+        linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0));
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 24px 60px rgba(0,0,0,0.34);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .frame::before {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+
+    .frame::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -16% auto;
+      width: 74%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 70%);
+      filter: blur(20px);
+      pointer-events: none;
+    }
+
+    .monogram-area {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      text-align: center;
+      padding: 26px;
+    }
+
+    .monogram-ring {
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 72%);
+      box-shadow: 0 0 0 18px rgba(255,255,255,0.015);
+    }
+
+    .monogram-ring img {
+      width: 116px;
+      height: 116px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 24px rgba(255,255,255,0.1));
+    }
+
+    .visual-title {
+      font-size: 14px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.74);
+    }
+
+    .visual-subtitle {
+      max-width: 260px;
+      color: rgba(255,255,255,0.62);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .section {
+      padding: 86px 0 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      max-width: 480px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 24px;
+      overflow: hidden;
+      min-height: 250px;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: auto -18% -22% auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 68%);
+      pointer-events: none;
+    }
+
+    .card-number {
+      display: inline-flex;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.97rem;
+    }
+
+    .band {
+      margin-top: 86px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .band-track {
+      display: flex;
+      gap: 34px;
+      white-space: nowrap;
+      padding: 18px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.78);
+      font-size: 12px;
+      animation: scroll 24s linear infinite;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .contact {
+      padding: 86px 0 90px;
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .contact-card,
+    .contact-links {
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      padding: 28px;
+    }
+
+    .contact-card h3,
+    .contact-links h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .contact-card p,
+    .contact-links p {
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .contact-list {
+      margin-top: 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 72px;
+      padding: 20px 22px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.25),
+        0 14px 40px rgba(0,0,0,0.35);
+      transition: all 0.25s ease;
+    }
+
+    .contact-link:hover {
+      transform: translateY(-3px) scale(1.01);
+      background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.06));
+      border-color: rgba(255,255,255,0.35);
+    }
+
+    .contact-link strong {
+      font-size: 15px;
+    }
+
+    .contact-link span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .footer {
+      padding: 0 0 34px;
+      text-align: center;
+      color: var(--muted-2);
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .contact-panel,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 460px;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrapper {
+        width: min(100% - 18px, 1120px);
+      }
+
+      .topbar,
+      .hero-grid {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        gap: 14px;
+        align-items: start;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 18px 0 32px;
+      }
+
+      .hero-card {
+        border-radius: 28px;
+      }
+
+      h1 {
+        font-size: 2.25rem;
+      }
+
+      .hero-copy p {
+        font-size: 0.98rem;
+        line-height: 1.75;
+      }
+
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .micro-proof {
+        gap: 8px;
+      }
+
+      .chip {
+        font-size: 11px;
+        padding: 10px 12px;
+      }
+
+      .frame {
+        padding: 18px;
+        border-radius: 26px;
+      }
+
+      .monogram-ring {
+        width: 180px;
+        height: 180px;
+      }
+
+      .monogram-ring img {
+        width: 96px;
+        height: 96px;
+      }
+
+      .card,
+      .contact-card,
+      .contact-links {
+        padding: 22px;
+      }
+
+      .contact-link {
+        min-height: 64px;
+        padding: 16px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <section class="hero">
+    <div class="wrapper">
+      <div class="hero-card">
+        <div class="topbar">
+          <div class="brand-mini">
+            <img src="logo-jvr.png" alt="Logo JVR Studio">
+            <span>JVR Studio</span>
+          </div>
+          <span class="tag">Web Design • Identidade Visual</span>
+        </div>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Presença digital com atitude</span>
+            <h1>Criação de sites com visual marcante, moderno e sofisticado.</h1>
+            <p>
+              A JVR Studio cria sites e desenvolve identidades visuais para marcas, negócios e projetos
+              que querem uma presença digital mais forte, organizada e memorável.
+              O estilo é mais escuro, refinado e marcante, sempre mantendo clareza,
+              elegância e equilíbrio.
+            </p>
+
+            <div class="actions">
+              <a class="btn btn-dark btn-icon" href="https://wa.me/5531988830310" target="_blank" rel="noopener noreferrer">
+                <img src="whatsapp-icon.png" alt="Ícone do WhatsApp" class="btn-app-icon">
+                <span>Falar no WhatsApp</span>
+              </a>
+
+              <a class="btn btn-secondary btn-icon" href="https://www.instagram.com/jvr.officiall?igsh=ZWo5ZmE4eG1qOTc1" target="_blank" rel="noopener noreferrer">
+                <img src="instagram-icon.png" alt="Ícone do Instagram" class="btn-app-icon">
+                <span>Ver Instagram</span>
+              </a>
+
+              <a class="btn btn-dark" href="mailto:jvrstudiooficial@gmail.com">Enviar e-mail</a>
+            </div>
+
+            <div class="micro-proof">
+              <span class="chip">Sites responsivos</span>
+              <span class="chip">Visual marcante</span>
+              <span class="chip">Identidade visual</span>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="frame">
+              <div class="monogram-area">
+                <div class="monogram-ring">
+                  <img src="logo-jvr.png" alt="Monograma JVR">
+                </div>
+                <div class="visual-title">JVR Studio</div>
+                <div class="visual-subtitle">
+                  Design digital com presença limpa, sombria e memorável.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrapper">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">O que a JVR entrega</span>
+          <h2>Visual forte, navegação limpa e identidade bem construída.</h2>
+        </div>
+        <p>
+          A proposta é construir páginas bonitas, organizadas e fáceis de navegar,
+          ajudando cada marca a se apresentar melhor no digital com mais clareza e personalidade.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <span class="card-number">01</span>
+          <h3>Criação de sites</h3>
+          <p>
+            Landing pages, vitrines digitais e páginas institucionais com foco em apresentação,
+            clareza e impacto visual desde o primeiro scroll.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="card-number">02</span>
+          <h3>Identidade visual</h3>
+          <p>
+            Direção visual alinhada com a personalidade do projeto, com estética pensada para dar unidade
+            ao Instagram, site e materiais de divulgação.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="card-number">03</span>
+          <h3>Presença digital</h3>
+          <p>
+            Uma presença online mais forte, elegante e organizada, sem excessos. O resultado precisa ser bonito,
+            funcional e fácil de confiar.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="band">
+    <div class="band-track">
+      <span>JVR Studio</span>
+      <span>Web Design</span>
+      <span>Identidade Visual</span>
+      <span>Sites Profissionais</span>
+      <span>Presença Digital</span>
+      <span>JVR Studio</span>
+      <span>Web Design</span>
+      <span>Identidade Visual</span>
+      <span>Sites Profissionais</span>
+      <span>Presença Digital</span>
+    </div>
+  </div>
+
+  <section class="contact">
+    <div class="wrapper">
+      <div class="contact-panel">
+        <div class="contact-card">
+          <span class="eyebrow">Contato</span>
+          <h3>Vamos criar algo marcante para sua presença digital.</h3>
+          <p>
+            Se você quer um site com visual marcante, organização e identidade mais forte,
+            a JVR Studio pode desenvolver isso com você. Entre em contato pela forma que ficar melhor.
+          </p>
+        </div>
+
+        <div class="contact-links">
+          <h3>Canais da JVR</h3>
+          <p>Escolha o caminho mais rápido. O importante é abrir a porta.</p>
+
+          <div class="contact-list">
+            <a class="contact-link" href="https://wa.me/5531988830310" target="_blank" rel="noopener noreferrer">
+              <div style="display:flex;align-items:center;gap:14px;">
+                <img src="whatsapp-icon.png" alt="Ícone do WhatsApp" style="width:46px;height:46px;border-radius:14px;object-fit:cover;box-shadow:0 10px 24px rgba(0,0,0,0.35);flex-shrink:0;">
+                <div>
+                  <strong>WhatsApp</strong>
+                  <span>Atendimento direto</span>
+                </div>
+              </div>
+              <span>→</span>
+            </a>
+
+            <a class="contact-link" href="https://www.instagram.com/jvr.officiall?igsh=ZWo5ZmE4eG1qOTc1" target="_blank" rel="noopener noreferrer">
+              <div style="display:flex;align-items:center;gap:14px;">
+                <img src="instagram-icon.png" alt="Ícone do Instagram" style="width:46px;height:46px;border-radius:14px;object-fit:cover;box-shadow:0 10px 24px rgba(0,0,0,0.35);flex-shrink:0;">
+                <div>
+                  <strong>Instagram</strong>
+                  <span>Marca, posts e contato</span>
+                </div>
+              </div>
+              <span>→</span>
+            </a>
+
+            <a class="contact-link" href="mailto:jvrstudiooficial@gmail.com">
+              <div>
+                <strong>E-mail</strong>
+                <span>Para propostas e projetos</span>
+              </div>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrapper">
+      <p>© 2026 JVR Studio. Criação de sites e identidade visual.</p>
+    </div>
+  </footer>
+</body>
+</html>
